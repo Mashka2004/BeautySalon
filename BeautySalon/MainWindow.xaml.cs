@@ -86,10 +86,12 @@ namespace BeautySalon
             {
                 string passwordBd = dt.Rows[0].ItemArray[5].ToString();
 
-                if (passwordBd == GetHashPass(password) || passwordBd == GetHashPass(passwordTextBox.Text) )
+                if (passwordBd == GetHashPass(password) || passwordBd == GetHashPass(passwordTextBox.Text)   )
                 {
+
                     MyData.role = dt.Rows[0].ItemArray[6].ToString();
                     MyData.name = $"{dt.Rows[0].ItemArray[1]} {dt.Rows[0].ItemArray[2]}";
+
 
                     FormUtils.workTable = new workTable();
                     Visibility = Visibility.Collapsed;
