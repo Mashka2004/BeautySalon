@@ -1,0 +1,59 @@
+﻿<Window x:Class="BeautySalon.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:btn ="clr-namespace:BeautySalon.viewBase"
+        xmlns:local="clr-namespace:BeautySalon"
+        mc:Ignorable="d"
+        Title="Главная" Height="550" Width="380" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid Margin="0,2,-0.4,-2">
+        <Grid.Background>
+            <ImageBrush ImageSource="Image/Background.jpg"/>
+        </Grid.Background>
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" FontFamily="Microsoft JhengHei" FontSize="28" Margin="30" Text="Авторизация"/>
+            <TextBox MaxLength="20" KeyDown="loginBox_KeyDown" PreviewTextInput="loginBox_PreviewTextInput"  x:Name="loginBox" Style="{StaticResource PcaholderTextBox}" Tag="Логин" Width="250" Height="50"/>
+           
+           
+            
+            
+            <Border Width="250" BorderBrush="#333" BorderThickness="1" CornerRadius="0 0 25 25" x:Name="PasswordOne">
+              
+                
+                <StackPanel Orientation="Horizontal">
+                    <PasswordBox MaxLength="20"  PreviewTextInput="loginBox_PreviewTextInput" x:Name="passwordBox" 
+                                 PasswordChanged="PasswordBox_PasswordChanged" Style="{StaticResource PasswordBoxTwo}" 
+                                 Tag="Пароль" Width="220" Height="50"/>
+                    <btn:Btn Width="20" Style="{StaticResource BtnCheck}" Click="Btn_Click">
+                        <Image Name="image" Margin="0 0 10 0" Width="20" Source="/Image/Eye-Open.png"/>
+                    </btn:Btn>
+                    
+                </StackPanel>
+            </Border>
+
+            <Border Width="250" BorderBrush="#333" BorderThickness="1" CornerRadius="0 0 25 25"  x:Name="PasswordTwo" Visibility="Collapsed">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="passwordTextBox" MaxLength="20" Style="{StaticResource PcaholderTextBoxSearch}" Tag="Пароль" Width="220" Height="50"/>
+                    <btn:Btn Width="20" Style="{StaticResource BtnCheck}" Click="Btn_Click_1">
+                        <Image Name="image1" Margin="0 0 10 0" Width="20" Source="/Image/Eye-Close.png"/>
+                    </btn:Btn>
+
+                </StackPanel>
+            </Border>
+
+
+
+
+            <Button Click="Button_Click" Style="{StaticResource BtnSign}" Width="250" Height="50" Margin="0 25"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Style="{StaticResource BtnClose}" Width="22" Margin="10" Click="Button_Click_1"/>
+        </StackPanel>
+
+
+
+
+    </Grid>
+</Window>
