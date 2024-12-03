@@ -27,9 +27,11 @@ namespace BeautySalon.Forms
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBox.Show("Вернуться на форму авторизации?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
         }
-
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
             var radioButton = sender as RadioButton;

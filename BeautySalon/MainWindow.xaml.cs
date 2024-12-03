@@ -51,6 +51,23 @@ namespace BeautySalon
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (Properties.Settings.Default.login == loginBox.Text)
+            {
+                if (Properties.Settings.Default.pwd == passwordBox.Password)
+                {
+                    MessageBox.Show("Вы успешно авторизовались под локальным пользователем");
+                    SisAdminWorkTable siadmin = new SisAdminWorkTable();
+                    this.Visibility = Visibility.Collapsed;
+                    siadmin.ShowDialog();
+                    Visibility = Visibility.Visible;
+                }
+                else 
+                {
+                    MessageBox.Show("Неверный пароль.");
+                    passwordBox.Clear();
+                    passwordTextBox.Clear();
+                }
+            }
             MySqlConnection con = new MySqlConnection(SqlConnection.connectionString); 
             try
             {
@@ -136,8 +153,23 @@ namespace BeautySalon
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SisAdminWorkTable sisAdminWorkTable = new SisAdminWorkTable();
-            sisAdminWorkTable.ShowDialog();
+            
+            using(MySqlConnection con = new MySqlConnection(SqlConnection.connectionString))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'VKR'", con))
+                {
+                    MySqlDataReader dr = cmd.ExecuteReader();
+                    int count = 10;
+                    while (dr.Read()) {
+                        count = int.Parse(dr.GetValue(0).ToString());
+                            }
+                    if (count != 10)
+                    {
+                        MessageBox.Show("Структура базы данных нарушена","Предупреждение",MessageBoxButton.OK,MessageBoxImage.Stop);
+                    }
+                }
+            }
         }
 
         private void CheckBoxClose_Click(object sender, RoutedEventArgs e)
