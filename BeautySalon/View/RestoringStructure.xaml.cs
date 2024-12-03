@@ -33,10 +33,16 @@ namespace BeautySalon.View
             string databaseName = "VKR"; // База данных
             using (MySqlConnection con = new MySqlConnection(SqlConnection.connectionString))
             {
-                con.Open();
-                MySqlCommand cmdDrop = new MySqlCommand($"DROP DATABASE IF EXISTS `{databaseName}`;", con);
-                cmdDrop.ExecuteNonQuery();
 
+                con.Open();
+                MySqlCommand cmdCheckExists = new MySqlCommand($"SELECT COUNT(*) FROM information_schema.schemata WHERE schema_name = '{databaseName}';", con);
+                int dbExists = Convert.ToInt32(cmdCheckExists.ExecuteScalar());
+
+                if (dbExists > 0)
+                {
+                    MySqlCommand cmdDrop = new MySqlCommand($"DROP DATABASE IF EXISTS `{databaseName}`;", con);
+                    cmdDrop.ExecuteNonQuery();
+                }
                 MySqlCommand cmdCreate = new MySqlCommand($"CREATE DATABASE `{databaseName}`;", con);
                 cmdCreate.ExecuteNonQuery();
 

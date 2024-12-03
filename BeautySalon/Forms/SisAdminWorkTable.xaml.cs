@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeautySalon.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,22 @@ namespace BeautySalon.Forms
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
+        {
+            var radioButton = sender as RadioButton;
+            StackPanelActive.Children.Clear();
+            switch (radioButton.Name){
+                case "import":
+                    Import import = new Import();
+                    StackPanelActive.Children.Add(import);
+                    break;
+                case "restoringStructure":
+                    RestoringStructure restoringStructure = new RestoringStructure();
+                    StackPanelActive.Children.Add(restoringStructure);
+                    break;
+            }
+        }
+
+        private void Import_Loaded(object sender, RoutedEventArgs e)
         {
 
         }

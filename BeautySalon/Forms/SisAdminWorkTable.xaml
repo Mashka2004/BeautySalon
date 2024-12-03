@@ -25,7 +25,7 @@
                         <Image Width="220" Height="220" Source="/Image/logo.png"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1">
-                        <menuBnt:Btn Style="{StaticResource BtnMenu}" x:Name="Employees" Click="Orders_Click">
+                        <menuBnt:Btn Style="{StaticResource BtnMenu}" x:Name="import" Click="Orders_Click">
                             <Grid>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Width="45" Margin="20 0 15 0" Source="/Image/ImageIcon/import.png"/>
@@ -34,7 +34,7 @@
                             </Grid>
                         </menuBnt:Btn>
 
-                        <menuBnt:Btn Style="{StaticResource BtnMenu}" x:Name="Orders" Click="Orders_Click" Height="80">
+                        <menuBnt:Btn Style="{StaticResource BtnMenu}" x:Name="restoringStructure" Click="Orders_Click" Height="80">
                             <Grid>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Width="45" Margin="20 0 15 0" Source="/Image/ImageIcon/vosstanovlenie-bd.png"/>
@@ -76,7 +76,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" x:Name="StackPanelActive">
-                <uc:RestoringStructure/>
+                <uc:Import Loaded="Import_Loaded"/>
             </StackPanel>
             </Grid>
         </Grid>
