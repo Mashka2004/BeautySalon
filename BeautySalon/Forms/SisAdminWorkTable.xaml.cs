@@ -28,5 +28,10 @@ namespace BeautySalon.Forms
         {
 
         }
+
+        private void Orders_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

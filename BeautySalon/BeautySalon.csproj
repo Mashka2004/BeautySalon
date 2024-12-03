@@ -613,6 +613,9 @@
     <Resource Include="Image\edit-image.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Backup\beautysalon%28Структура%29.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Image\image.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

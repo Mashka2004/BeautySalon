@@ -8,6 +8,6 @@ namespace BeautySalon.viewBase
 {
    static public class SqlConnection
     {
-        static public string connectionString = "host=localhost;uid=root;pwd=;database=VKR;";
+        static public string connectionString = "host=localhost;uid=root;pwd=root;database=VKR;";
     }
 }

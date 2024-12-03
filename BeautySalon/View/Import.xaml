@@ -19,7 +19,7 @@
                 <TextBlock Margin="5 0" Opacity="0.6" Text="tables.csv"/>
             </StackPanel>
     
-            <Button x:Name="FileBtn" Style="{StaticResource BtnStyle}" Width="300" Height="60" Content="Импортировать данные" Click="AddBtn_Click_1" Margin="0 10" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <Button x:Name="FileBtn" Style="{StaticResource BtnStyle}" Width="300" Height="60" Content="Импортировать данные" Click="FileBtn_Click" Margin="0 10" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
             
         </StackPanel>
 

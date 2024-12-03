@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BeautySalon.viewBase;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +27,29 @@ namespace BeautySalon.View
         {
             InitializeComponent();
         }
-
         private void BtnStruct_Click(object sender, RoutedEventArgs e)
         {
+            string backupPath = "Backup\\beautysalon(Структура).sql"; // Дамп структуры базы данных
+            string databaseName = "VKR"; // База данных
+            using (MySqlConnection con = new MySqlConnection(SqlConnection.connectionString))
+            {
+                con.Open();
+                MySqlCommand cmdDrop = new MySqlCommand($"DROP DATABASE IF EXISTS `{databaseName}`;", con);
+                cmdDrop.ExecuteNonQuery();
 
+                MySqlCommand cmdCreate = new MySqlCommand($"CREATE DATABASE `{databaseName}`;", con);
+                cmdCreate.ExecuteNonQuery();
+
+                MySqlCommand cmdUse = new MySqlCommand($"USE `{databaseName}`;", con);
+                cmdUse.ExecuteNonQuery();
+
+                string script = File.ReadAllText(backupPath);
+                MySqlScript sqlScript = new MySqlScript(con, script);
+                sqlScript.Execute();
+
+                con.Close();
+            }
+            MessageBox.Show("Востановление структуры прошло успешно");
         }
     }
 }

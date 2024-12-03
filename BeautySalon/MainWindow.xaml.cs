@@ -136,6 +136,8 @@ namespace BeautySalon
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            SisAdminWorkTable sisAdminWorkTable = new SisAdminWorkTable();
+            sisAdminWorkTable.ShowDialog();
         }
 
         private void CheckBoxClose_Click(object sender, RoutedEventArgs e)

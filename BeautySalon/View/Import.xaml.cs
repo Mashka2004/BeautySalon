@@ -30,7 +30,7 @@ namespace BeautySalon.View
 
         }
 
-        private void AddBtn_Click_1(object sender, RoutedEventArgs e)
+        private void FileBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }
