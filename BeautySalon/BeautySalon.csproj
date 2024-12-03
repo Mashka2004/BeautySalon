@@ -179,6 +179,9 @@
     <Compile Include="Forms\ServicesEdit.xaml.cs">
       <DependentUpon>ServicesEdit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SisAdminWorkTable.xaml.cs">
+      <DependentUpon>SisAdminWorkTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\workTable.xaml.cs">
       <DependentUpon>workTable.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,9 @@
     <Compile Include="View\Employees.xaml.cs">
       <DependentUpon>Employees.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Import.xaml.cs">
+      <DependentUpon>Import.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Materials.xaml.cs">
       <DependentUpon>Materials.xaml</DependentUpon>
     </Compile>
@@ -203,6 +209,9 @@
     </Compile>
     <Compile Include="View\Product.xaml.cs">
       <DependentUpon>Product.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RestoringStructure.xaml.cs">
+      <DependentUpon>RestoringStructure.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Schedules.xaml.cs">
       <DependentUpon>Schedules.xaml</DependentUpon>
@@ -258,6 +267,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\SisAdminWorkTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\workTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -286,6 +299,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Import.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Materials.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -295,6 +312,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Product.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RestoringStructure.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -371,6 +392,8 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Image\imageIcon\vosstanovlenie-bd.png" />
+    <Resource Include="Image\imageIcon\import.png" />
     <Resource Include="Image\imageProduct\0R6AzpzbchQ.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
