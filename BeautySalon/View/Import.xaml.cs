@@ -168,13 +168,11 @@ namespace BeautySalon.View
                                 MySqlDataAdapter mySqlDataServicess = new MySqlDataAdapter(cmdCheckTableServicess);
                                 DataTable dtServicess = new DataTable();
                                 mySqlDataServicess.Fill(dtServicess);
-
                                 // Проверка на наличие записей в таблице Materials
                                 MySqlCommand cmdCheckTableMaterials = new MySqlCommand("SELECT COUNT(*) FROM Materials;", con);
                                 MySqlDataAdapter mySqlDataMaterials = new MySqlDataAdapter(cmdCheckTableMaterials);
                                 DataTable dtMaterials = new DataTable();
                                 mySqlDataMaterials.Fill(dtMaterials);
-
                                 // Условие для вставки в таблицу Service_Materials
                                 if (int.Parse(dtServicess.Rows[0].ItemArray[0].ToString()) > 0 && int.Parse(dtMaterials.Rows[0].ItemArray[0].ToString()) > 0)
                                 {
@@ -187,7 +185,6 @@ namespace BeautySalon.View
                                     MessageBox.Show("Сначала заполните таблицы Services и Materials");
                                     return;
                                 }
-
                             case "Services":
                                 que = $@"Insert Into `Services`({String.Join(",", titleField)}) VALUES(
                                 '{valField[0]}','{valField[1]}','{valField[2]}','{valField[3]}','{valField[4]}')";
