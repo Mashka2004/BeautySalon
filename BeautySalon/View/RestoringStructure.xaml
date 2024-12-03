@@ -10,7 +10,7 @@
         
         
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="BtnStruct" Style="{StaticResource BtnStruct}" Width="300" Height="80" Content="Восстановить структуру" Click="BtnStruct_Click" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <Button x:Name="BtnStruct" Style="{StaticResource BtnStruct}" Width="300" Height="80" Content="Восстановить структуру" Click="BtnStruct_Click" VerticalAlignment="Top"/>
         </StackPanel>
 
     </Grid>
