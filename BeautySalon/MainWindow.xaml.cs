@@ -18,6 +18,7 @@ using System.Data;
 using BeautySalon.Forms;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using System.Drawing;
 
 namespace BeautySalon
 {
@@ -63,7 +64,6 @@ namespace BeautySalon
                     passwordBox.Clear();
                     passwordTextBox.Clear();
                     return;
-
                 }
                 else 
                 {
@@ -212,5 +212,79 @@ namespace BeautySalon
 
             PasswordTwo.Visibility = Visibility.Collapsed;
         }
+
+        private void Btn_Click_2(object sender, RoutedEventArgs e)
+        {
+            string captchaText = GenerateRandomText(4);
+            Bitmap captchaBitmap = GenerateCaptchaImage(captchaText);
+            CAPTCHA.Source = ConvertBitmapToBitmapSource(captchaBitmap);
+        }
+
+        private string GenerateRandomText(int length)
+        {
+            Random rand = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // Буквы и цифры
+            char[] result = new char[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                result[i] = chars[rand.Next(chars.Length)];
+            }
+
+            return new string(result);
+        }
+        private Bitmap GenerateCaptchaImage(string text)
+        {
+            int width = 200;
+            int height = 50; // высота изображения
+            // Создаем изображение
+            Bitmap bitmap = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                Random rand = new Random();
+
+                // Заливаем фон градиентом
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        int gray = rand.Next(256);
+                        g.FillRectangle(new SolidBrush(System.Drawing.Color.FromArgb(gray, gray, gray)), x, y, 1, 1);
+                    }
+                }
+                Font font = new Font("Arial", 20, System.Drawing.FontStyle.Bold);
+                System.Drawing.Brush textBrush = System.Drawing.Brushes.Black;
+
+                SizeF textSize = g.MeasureString(text, font);
+                // Вычисляем начальную позицию по X для центрирования
+                float startX = (width - textSize.Width) / 2;
+
+                for (int i = 0; i < text.Length; i++)
+                {
+                    float waveHeight = (float)(Math.Sin(i + DateTime.Now.Second) * 5); // высота волны
+                    g.DrawString(text[i].ToString(), font, textBrush, new PointF(startX + i * 11, height / 3 + waveHeight));
+
+                }
+            }
+            return bitmap;
+        }
+        private BitmapSource ConvertBitmapToBitmapSource(Bitmap bitmap)
+        {
+            IntPtr hBitmap = bitmap.GetHbitmap();
+            BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+            hBitmap,
+            IntPtr.Zero,
+            Int32Rect.Empty,
+            BitmapSizeOptions.FromEmptyOptions());
+
+            // Освобождаем дескриптор
+            DeleteObject(hBitmap);
+
+            return bitmapSource;
+        }
+
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        private static extern bool DeleteObject(IntPtr hObject);
+
     }
 }
