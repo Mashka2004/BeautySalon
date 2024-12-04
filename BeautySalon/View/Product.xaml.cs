@@ -154,9 +154,18 @@ namespace BeautySalon.View
                     Content = (i + 1).ToString(),
                     Margin = new Thickness(0, 0, 10, 0)
                 };
+                paginationBtn.Click += PaginationBtn_Click;
                 PaginationBar.Children.Add(paginationBtn);
             }
             }
+
+        private void PaginationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = sender as Button;
+
+            currentPage = int.Parse(clickedButton.Content.ToString());
+            UpdateGrid(query, currentPage);
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -256,12 +265,23 @@ namespace BeautySalon.View
 
         private void Btn_Click_1(object sender, RoutedEventArgs e)
         {
+            int maxPage = (int)Math.Ceiling((double)totalRecords / pageSize);
 
+            // Проверяем, что текущая страница меньше максимальной
+            if (currentPage < maxPage)
+            {
+                currentPage += 1;
+                UpdateGrid(query, currentPage);
+            }
         }
 
         private void Btn_Click_2(object sender, RoutedEventArgs e)
         {
-
+            if (currentPage > 1)
+            {
+                currentPage -= 1;
+                UpdateGrid(query, currentPage);
+            }
         }
     }
 }
