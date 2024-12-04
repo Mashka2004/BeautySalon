@@ -27,11 +27,13 @@ namespace BeautySalon.View
         {
             InitializeComponent();
         }
+
         private void BtnStruct_Click(object sender, RoutedEventArgs e)
         {
+            string conStr = "host=localhost;uid=root;pwd=root;";
             string backupPath = "Backup\\beautysalon(Структура).sql"; // Дамп структуры базы данных
             string databaseName = "VKR"; // База данных
-            using (MySqlConnection con = new MySqlConnection(SqlConnection.connectionString))
+            using (MySqlConnection con = new MySqlConnection(conStr))
             {
 
                 con.Open();

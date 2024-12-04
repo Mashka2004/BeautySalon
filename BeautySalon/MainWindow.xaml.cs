@@ -60,6 +60,10 @@ namespace BeautySalon
                     this.Visibility = Visibility.Collapsed;
                     siadmin.ShowDialog();
                     Visibility = Visibility.Visible;
+                    passwordBox.Clear();
+                    passwordTextBox.Clear();
+                    return;
+
                 }
                 else 
                 {
@@ -153,28 +157,10 @@ namespace BeautySalon
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            using(MySqlConnection con = new MySqlConnection(SqlConnection.connectionString))
-            {
-                con.Open();
-                using (MySqlCommand cmd = new MySqlCommand($"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'VKR'", con))
-                {
-                    MySqlDataReader dr = cmd.ExecuteReader();
-                    int count = 10;
-                    while (dr.Read()) {
-                        count = int.Parse(dr.GetValue(0).ToString());
-                            }
-                    if (count != 10)
-                    {
-                        MessageBox.Show("Структура базы данных нарушена","Предупреждение",MessageBoxButton.OK,MessageBoxImage.Stop);
-                    }
-                }
-            }
+                      
         }
-
         private void CheckBoxClose_Click(object sender, RoutedEventArgs e)
-        {
-          
+        {       
             passwordBox.Visibility = Visibility.Visible;
         }
 

@@ -392,6 +392,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Image\imageIcon\generate.png" />
     <Resource Include="Image\imageIcon\vosstanovlenie-bd.png" />
     <Resource Include="Image\imageIcon\import.png" />
     <Resource Include="Image\imageProduct\0R6AzpzbchQ.jpg">

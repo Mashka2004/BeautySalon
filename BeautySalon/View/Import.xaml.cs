@@ -30,6 +30,10 @@ namespace BeautySalon.View
             InitializeComponent();
         }
         string fileName;
+        private object tableName;
+
+        public object ComboBox1 { get; private set; }
+
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -49,7 +53,7 @@ namespace BeautySalon.View
             string tableName = Combobox1.Text;
             string[] valField;
             string que = string.Empty;
-            int count;
+            int count;           
 
             using (MySqlConnection con = new MySqlConnection(SqlConnection.connectionString))
             {
@@ -203,6 +207,8 @@ namespace BeautySalon.View
                         }
                     }
                     MessageBox.Show("Данные успешно импортированы","Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Combobox1.SelectedItem = null;
+                    FileBtn.IsEnabled = false;
                 }
                 else
                 {
@@ -212,20 +218,42 @@ namespace BeautySalon.View
         }
             private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            using(MySqlConnection con = new MySqlConnection(SqlConnection.connectionString))
+            using (MySqlConnection con = new MySqlConnection(SqlConnection.connectionString))
             {
-                con.Open();
-                using(MySqlCommand cmd = new MySqlCommand($@"SHOW TABLES", con))
+                FileBtn.IsEnabled = false;
+                try
                 {
-                    MySqlDataReader dr = cmd.ExecuteReader();
-
-                    while (dr.Read())
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand($@"SHOW TABLES", con))
                     {
-                        Combobox1.Items.Add(dr.GetValue(0));
+                        MySqlDataReader dr = cmd.ExecuteReader();
+
+                        while (dr.Read())
+                        {
+                            Combobox1.Items.Add(dr.GetValue(0));
+                        }
                     }
                 }
-            }
+                catch
+                {
+                    MessageBox.Show("Ошибка с подключением", "Ошикба", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                }               
         }
+        private void ComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TextBlock textBlock = (TextBlock)Combobox1.Template.FindName("textBlock", Combobox1);
+            if (Combobox1.SelectedItem == null)
+            {
+                textBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                textBlock.Visibility = Visibility.Collapsed;
+                FileBtn.IsEnabled = true;
+            }
+        }  
         static string[] GetDataBaseHeader(MySqlConnection con, string tableName)
         {
             using (MySqlCommand cmd = new MySqlCommand($"Select * From {tableName} Limit 0", con))

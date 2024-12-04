@@ -76,7 +76,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" x:Name="StackPanelActive">
-                <uc:Import Loaded="Import_Loaded"/>
+                <uc:RestoringStructure/>
             </StackPanel>
             </Grid>
         </Grid>
