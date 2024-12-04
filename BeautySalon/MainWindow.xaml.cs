@@ -186,13 +186,11 @@ namespace BeautySalon
              passwordBox.Visibility = Visibility.Collapsed;
         
         }
-
         private void loginBox_KeyDown(object sender, KeyEventArgs e)
         {
            
          
         }
-
         private void loginBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (Regex.IsMatch(e.Text,@"^[\W]$")) { e.Handled = true;}
@@ -201,7 +199,6 @@ namespace BeautySalon
             var passwordBox = sender as PasswordBox;
           
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Вы уверены, что хотите выйти из приложения?", "Выход из приложения", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
@@ -209,18 +206,13 @@ namespace BeautySalon
                 this.Close();
             }
         }
-
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
-
-
             PasswordTwo.Visibility = Visibility.Visible;
             passwordTextBox.Text = passwordBox.Password;
             PasswordOne.Visibility = Visibility.Collapsed;
-
-   
+ 
         }
-
         private void Btn_Click_1(object sender, RoutedEventArgs e)
         {
             PasswordOne.Visibility = Visibility.Visible;
