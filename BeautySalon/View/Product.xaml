@@ -86,21 +86,34 @@
                 </DataGrid.Resources>
             </DataGrid>
         </StackPanel>
-        <StackPanel Grid.Row="3" x:Name="PaginationBar" Orientation="Horizontal">
-            
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <btn:Btn Height="60" Style="{StaticResource BtnCheck}" HorizontalAlignment="Center" Click="Btn_Click_2" VerticalAlignment="Center" Width="30">
+                <Image Source="/Image/imageIcon/strelk.png" Height="35"/>
+            </btn:Btn>
+            <StackPanel x:Name="PaginationBar" Orientation="Horizontal">
+                
+            </StackPanel>
+            <btn:Btn Height="60" Style="{StaticResource BtnCheck}" HorizontalAlignment="Center" Click="Btn_Click_1" VerticalAlignment="Center" Width="30">
+                <Image Source="/Image/imageIcon/strelk.png" RenderTransformOrigin="0.5,0.5" Height="35">
+                    <Image.RenderTransform>
+                        <ScaleTransform ScaleX="-1"/>
+                    </Image.RenderTransform>
+                </Image>
+            </btn:Btn>
         </StackPanel>
 
         <StackPanel Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Stretch" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="0,5.8,0,6">
             <Grid Margin="10 0" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="880"/>
+                    <ColumnDefinition Width="356"/>
+                    <ColumnDefinition Width="524"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
+                <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,356,0">
                 </StackPanel>
 
 
-                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal" Grid.ColumnSpan="2">
                     <Button x:Name="AddBtn" Style="{StaticResource BtnStyle}" Margin="0,0,20,-2" Width="200" Height="50" Content="Добавить" Click="Button_Click" VerticalAlignment="Top"/>
                     <Button x:Name="EditBtn" Style="{StaticResource BtnStyle}" Margin="0 0 20 0" Width="200" Height="50" Content="Изменить" Click="EditBtn_Click"/>
                     <Button x:Name="DellBtn" Style="{StaticResource BtnStyle}" Margin="0,0,20,0" Width="200" Height="50" Content="Удалить" VerticalAlignment="Top" Click="Button_Click_1"/>

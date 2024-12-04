@@ -144,6 +144,18 @@ namespace BeautySalon.View
                 DellBtn.Visibility = Visibility.Hidden;
                
             }
+            for (int i = 0; i < (int)Math.Ceiling((double)totalRecords / pageSize); i++)
+            {
+                var paginationBtn = new Button
+                {
+                    Width = 30,
+                    Height = 30,
+                    Style = (Style)FindResource("BtnStyle"),
+                    Content = (i + 1).ToString(),
+                    Margin = new Thickness(0, 0, 10, 0)
+                };
+                PaginationBar.Children.Add(paginationBtn);
+            }
             }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -240,6 +252,16 @@ namespace BeautySalon.View
         {
             if (Regex.IsMatch(e.Text, @"^[0-9\W]$")) { e.Handled = true; }
             if (Regex.IsMatch(e.Text, @"^[_]$")) { e.Handled = true; }
+        }
+
+        private void Btn_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Click_2(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
