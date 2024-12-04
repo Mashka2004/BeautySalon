@@ -26,7 +26,9 @@ namespace BeautySalon.View
         {
             InitializeComponent();
         }
-
+        private int currentPage = 1;
+        private const int pageSize = 15;
+        private int totalRecords;
         private void filteringAndSorting()
         {
             query = @"SELECT product_id, product_name As 'Наименование продукта',
@@ -77,7 +79,7 @@ namespace BeautySalon.View
                 query += " " + sortOrder;
             }
 
-            UpdateGrid(query);
+            UpdateGrid(query, currentPage);
         }
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -133,7 +135,7 @@ namespace BeautySalon.View
         {
             EditBtn.IsEnabled = false;
             DellBtn.IsEnabled = false;
-            UpdateGrid(query);
+            UpdateGrid(query, currentPage);
 
 
             if (MyData.role =="Администратор")
@@ -152,7 +154,7 @@ namespace BeautySalon.View
             ProductAdd.ShowDialog();
             FormUtils.workTable.Opacity = 1;
             this.Opacity = 1;
-            UpdateGrid(query);
+            UpdateGrid(query, currentPage);
                 EditBtn.IsEnabled = false;
             DellBtn.IsEnabled = false;
         }
@@ -164,17 +166,23 @@ namespace BeautySalon.View
             ProductEdit.ShowDialog();
             FormUtils.workTable.Opacity = 1;
             this.Opacity = 1;
-            UpdateGrid(query);
+            UpdateGrid(query,currentPage);
             EditBtn.IsEnabled = false;
             DellBtn.IsEnabled = false;
         }
-        private void UpdateGrid(string query)
+        private void UpdateGrid(string query, int page)
         {
+            query += $@" Limit {(page - 1) * pageSize}, {pageSize}";
             DataTable dataTable = new DataTable();
             using (MySqlConnection connection = new MySqlConnection(viewBase.SqlConnection.connectionString))
             {
                 MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
                 connection.Open();
+                string countQuery = "SELECT COUNT(*) FROM Cosmetic_Products";
+
+                MySqlCommand countCommand = new MySqlCommand(countQuery, connection);
+
+                totalRecords = Convert.ToInt32(countCommand.ExecuteScalar());
                 try
                 {
                     dataAdapter.Fill(dataTable);
@@ -212,7 +220,7 @@ namespace BeautySalon.View
                 MessageBox.Show("Товар удалён");
                 EditBtn.IsEnabled = false;
                 DellBtn.IsEnabled = false;
-                UpdateGrid(query);
+                UpdateGrid(query, currentPage);
             }
         }
 
@@ -224,7 +232,7 @@ namespace BeautySalon.View
             query = @"SELECT product_id, product_name As 'Наименование продукта',
                                 type As 'Тип', description As 'Описание', price As 'Цена', 
                                 quantity_in_stock As 'Кол-во на складе', image From Cosmetic_Products";
-            UpdateGrid(query); EditBtn.IsEnabled = false;
+            UpdateGrid(query, currentPage); EditBtn.IsEnabled = false;
             DellBtn.IsEnabled = false;
         }
 

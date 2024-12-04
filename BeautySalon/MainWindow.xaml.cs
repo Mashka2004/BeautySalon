@@ -195,7 +195,7 @@ namespace BeautySalon
         {
             if (Regex.IsMatch(e.Text,@"^[\W]$")) { e.Handled = true;}
             if (Regex.IsMatch(e.Text,@"^[а-яА-Я]$")) { e.Handled = true;}
-
+          
             var passwordBox = sender as PasswordBox;
           
         }
