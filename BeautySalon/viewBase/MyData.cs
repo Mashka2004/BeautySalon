@@ -17,5 +17,6 @@ namespace BeautySalon.viewBase
         static public string employee_id;
         static public string service_id;
         static public string schedules_id;
+        static public int countCaptcha = 0;
     }
 }

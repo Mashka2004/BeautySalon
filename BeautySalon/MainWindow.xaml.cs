@@ -19,6 +19,7 @@ using BeautySalon.Forms;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.Drawing;
+using System.Threading;
 
 namespace BeautySalon
 {
@@ -27,6 +28,8 @@ namespace BeautySalon
     /// </summary>
     public partial class MainWindow : Window
     {
+        string captchaText;
+        bool captchaCheck;
         public MainWindow()
         {
             InitializeComponent();
@@ -70,6 +73,13 @@ namespace BeautySalon
                     MessageBox.Show("Неверный пароль.");
                     passwordBox.Clear();
                     passwordTextBox.Clear();
+
+                    MessageBox.Show("Необходимо пройти captcha");
+                    CaptchaBox.Visibility = Visibility.Visible;
+                    captchaText = GenerateRandomText(4);
+                    Bitmap captchaBitmap = GenerateCaptchaImage(captchaText);
+                    CAPTCHA.Source = ConvertBitmapToBitmapSource(captchaBitmap);
+                    return;
                 }
             }
             MySqlConnection con = new MySqlConnection(SqlConnection.connectionString); 
@@ -128,6 +138,13 @@ namespace BeautySalon
                     MessageBox.Show("Неверный пароль.");
                     passwordBox.Clear();
                     passwordTextBox.Clear();
+
+                    MessageBox.Show("Необходимо пройти captcha");
+                    CaptchaBox.Visibility = Visibility.Visible;
+                    captchaText = GenerateRandomText(4);
+                    Bitmap captchaBitmap = GenerateCaptchaImage(captchaText);
+                    CAPTCHA.Source = ConvertBitmapToBitmapSource(captchaBitmap);
+                    return;
                 }
             }
             else
@@ -212,14 +229,12 @@ namespace BeautySalon
 
             PasswordTwo.Visibility = Visibility.Collapsed;
         }
-
         private void Btn_Click_2(object sender, RoutedEventArgs e)
         {
-            string captchaText = GenerateRandomText(4);
+            captchaText = GenerateRandomText(4);
             Bitmap captchaBitmap = GenerateCaptchaImage(captchaText);
             CAPTCHA.Source = ConvertBitmapToBitmapSource(captchaBitmap);
         }
-
         private string GenerateRandomText(int length)
         {
             Random rand = new Random();
@@ -286,5 +301,28 @@ namespace BeautySalon
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         private static extern bool DeleteObject(IntPtr hObject);
 
+        private void BtnProv_Click(object sender, RoutedEventArgs e)
+        {
+            if (CaptchaText.Text == captchaText)
+            {
+                MessageBox.Show("Captcha успешно пройдена");
+                captchaCheck = true;
+                CaptchaText.Clear();
+                CaptchaBox.Visibility = Visibility.Collapsed;
+            
+            }
+            else
+            {
+                captchaCheck = false;
+                MessageBox.Show("Captcha не пройдена");
+                MessageBox.Show("Блокировка формы на 30 секунд");
+                CaptchaText.Clear();
+                CaptchaBox.Visibility = Visibility.Collapsed;
+                Autorizetionbox.IsEnabled = false;
+                Thread.Sleep(30000);
+                Autorizetionbox.IsEnabled = true;
+            }
+
+        }
     }
 }
