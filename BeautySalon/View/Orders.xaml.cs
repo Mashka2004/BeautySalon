@@ -136,7 +136,6 @@ namespace BeautySalon.View
                 }
             }
             UpdateGrid(query);
-
         }
         private void dataGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

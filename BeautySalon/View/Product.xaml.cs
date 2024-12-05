@@ -29,62 +29,116 @@ namespace BeautySalon.View
         private int currentPage = 1;
         private const int pageSize = 15;
         private int totalRecords;
-        private void filteringAndSorting()
+        private void UpdatePaginationButtons(int totalPages)
+
         {
-            query = @"SELECT product_id, product_name As 'Наименование продукта',
-                                type As 'Тип', description As 'Описание', price As 'Цена', 
-                                quantity_in_stock As 'Кол-во на складе', image From Cosmetic_Products";
-
-            string sortOrder = "";
-
-            if (ComboBox1.SelectedItem != null)
+            PaginationBar.Children.Clear();
+            for (int i = 0; i < (int)Math.Ceiling((double)totalRecords / pageSize); i++)
             {
-                string selectedSortValue = (ComboBox1.SelectedItem as ComboBoxItem)?.Content.ToString();
-                switch (selectedSortValue)
+                var paginationBtn = new Button
                 {
-                    case "По Возврастанию":
-                        sortOrder += "ORDER BY product_name ASC";
-                        break;
-                    case "По Убыванию":
-                        sortOrder += "ORDER BY product_name DESC";
-                        break;
-
-              
-                }
-            }
-            if (ComboBox2.SelectedItem != null)
-            {
-                string selectedTypeValue = (ComboBox2.SelectedItem as ComboBoxItem)?.Content.ToString();
-              
-                    query += $" WHERE type = '{selectedTypeValue}'";
-
-              
-             
-            }
-
-            string filterText = searchBox.Text.Trim();
-            if (!string.IsNullOrEmpty(filterText))
-            {
-                if (ComboBox2.SelectedItem != null )
-                {
-                    query += $" AND product_name LIKE '%{filterText}%'";
-                }
-                else
-                {
-                    query += $" WHERE product_name LIKE '%{filterText}%'";
-                }
-            }
-            if (sortOrder != null)
-            {
-                query += " " + sortOrder;
-            }
-
-            UpdateGrid(query, currentPage);
+                    Width = 30,
+                    Height = 30,
+                    Style = (Style)FindResource("BtnStyle"),
+                    Content = (i + 1).ToString(),
+                    Margin = new Thickness(0, 0, 10, 0)
+                };
+                paginationBtn.Click += PaginationBtn_Click;
+                PaginationBar.Children.Add(paginationBtn);
         }
-        private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
+        }
+        private int GetTotalCount(List<string> filters)
         {
-         
+            string countQuery = @"SELECT COUNT(*) FROM Cosmetic_Products";
 
+            // Если есть условия фильтрации, добавляем их к запросу
+            if (filters.Count > 0)
+            {
+                countQuery += " WHERE " + string.Join(" AND ", filters);
+            }
+
+            using (MySqlConnection con = new MySqlConnection(viewBase.SqlConnection.connectionString))
+            {
+                con.Open();
+                using (MySqlCommand countCommand = new MySqlCommand(countQuery, con))
+                {
+                    totalRecords = Convert.ToInt32(countCommand.ExecuteScalar());
+                    return totalRecords;
+                }
+            }
+        }
+  
+            // Начальное SQL-запрос
+            private void filteringAndSorting()
+            {
+                // Начальное SQL-запрос
+                query = @"SELECT product_id, product_name AS 'Наименование продукта',
+                            type AS 'Тип', description AS 'Описание', price AS 'Цена', 
+                            quantity_in_stock AS 'Кол-во на складе', image FROM Cosmetic_Products";
+
+                string sortOrder = "";
+                List<string> filters = new List<string>(); // Список для хранения условий фильтрации
+
+                // Сортировка по выбранному значению из ComboBox1
+                if (ComboBox1.SelectedItem != null)
+                {
+                    string selectedSortValue = (ComboBox1.SelectedItem as ComboBoxItem)?.Content.ToString();
+                    switch (selectedSortValue)
+                    {
+                        case "По Возврастанию":
+                            sortOrder += " ORDER BY product_name ASC";
+                            break;
+                        case "По Убыванию":
+                            sortOrder += " ORDER BY product_name DESC";
+                            break;
+                    }
+                }
+
+                // Фильтрация по типу, выбранному в ComboBox2
+                if (ComboBox2.SelectedItem != null)
+                {
+                    string selectedTypeValue = (ComboBox2.SelectedItem as ComboBoxItem)?.Content.ToString();
+                    filters.Add($"type = '{selectedTypeValue}'");
+                }
+
+                // Получение текста для поиска
+                string filterText = searchBox.Text.Trim();
+
+                // Добавляем фильтрацию по имени продукта
+                if (!string.IsNullOrEmpty(filterText))
+                {
+                    filters.Add($"product_name LIKE '%{filterText}%'");
+                }
+
+                // Если есть условия фильтрации, добавляем их к запросу
+                if (filters.Count > 0)
+                {
+                    query += " WHERE " + string.Join(" AND ", filters);
+                }
+
+                // Получение общего количества записей для пагинации
+                int totalCount = GetTotalCount(filters);
+
+                // Определяем количество страниц
+                int pageSize = 15; // Количество записей на странице
+                int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+                // Обновляем кнопки пагинации
+                UpdatePaginationButtons(totalPages);
+
+                // Добавляем сортировку к запросу
+                if (!string.IsNullOrEmpty(sortOrder))
+                {
+                    query += sortOrder;
+                }
+
+                // Обновляем DataGrid с новыми данными
+                UpdateGrid(query, 1);
+            }
+
+
+            private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
             filteringAndSorting();
         }
         private void ComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -150,7 +204,7 @@ namespace BeautySalon.View
                 {
                     Width = 30,
                     Height = 30,
-                    Style = (Style)FindResource("BtnStyle"),
+                    Style = (Style)FindResource("BtnUC"),
                     Content = (i + 1).ToString(),
                     Margin = new Thickness(0, 0, 10, 0)
                 };
@@ -159,9 +213,18 @@ namespace BeautySalon.View
             }
             }
 
+
+        private  Button  selectedPaginationButton;
         private void PaginationBtn_Click(object sender, RoutedEventArgs e)
         {
             Button clickedButton = sender as Button;
+            if (selectedPaginationButton != null)
+            {
+                selectedPaginationButton.Style = (Style)FindResource("BtnUC");
+            }
+
+            clickedButton.Style = (Style)FindResource("BtnStyleActive");
+            selectedPaginationButton = clickedButton;
 
             currentPage = int.Parse(clickedButton.Content.ToString());
             UpdateGrid(query, currentPage);
@@ -253,7 +316,9 @@ namespace BeautySalon.View
             query = @"SELECT product_id, product_name As 'Наименование продукта',
                                 type As 'Тип', description As 'Описание', price As 'Цена', 
                                 quantity_in_stock As 'Кол-во на складе', image From Cosmetic_Products";
-            UpdateGrid(query, currentPage); EditBtn.IsEnabled = false;
+            currentPage = 1;
+            UpdateGrid(query, currentPage); 
+            EditBtn.IsEnabled = false;
             DellBtn.IsEnabled = false;
         }
 
