@@ -87,13 +87,13 @@
             </DataGrid>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <btn:Btn Height="60" Style="{StaticResource BtnCheck}" HorizontalAlignment="Center" Click="Btn_Click_2" VerticalAlignment="Center" Width="30">
+            <btn:Btn x:Name="BtnPrevious" Height="60" Style="{StaticResource BtnCheck}" HorizontalAlignment="Center" Click="Btn_Click_2" VerticalAlignment="Center" Width="30">
                 <Image Source="/Image/imageIcon/strelk.png" Height="35"/>
             </btn:Btn>
             <StackPanel x:Name="PaginationBar" Orientation="Horizontal">
                 
             </StackPanel>
-            <btn:Btn Height="60" Style="{StaticResource BtnCheck}" HorizontalAlignment="Center" Click="Btn_Click_1" VerticalAlignment="Center" Width="30">
+            <btn:Btn x:Name="BtnNext" Height="60" Style="{StaticResource BtnCheck}" HorizontalAlignment="Center" Click="Btn_Click_1" VerticalAlignment="Center" Width="30">
                 <Image Source="/Image/imageIcon/strelk.png" RenderTransformOrigin="0.5,0.5" Height="35">
                     <Image.RenderTransform>
                         <ScaleTransform ScaleX="-1"/>

@@ -15,33 +15,36 @@
         </Grid.Background>
 
         <StackPanel x:Name="Autorizetionbox" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock HorizontalAlignment="Center" FontFamily="Microsoft JhengHei" FontSize="28" Margin="30" Text="Авторизация"/>
-            <TextBox MaxLength="20" KeyDown="loginBox_KeyDown" PreviewTextInput="loginBox_PreviewTextInput"  x:Name="loginBox" Style="{StaticResource PcaholderTextBox}" Tag="Логин" Width="250" Height="50"/>
+            <StackPanel x:Name="Autorizetionbox1">
+                <TextBlock HorizontalAlignment="Center" FontFamily="Microsoft JhengHei" FontSize="28" Margin="30" Text="Авторизация"/>
+                <TextBox MaxLength="20" KeyDown="loginBox_KeyDown" PreviewTextInput="loginBox_PreviewTextInput"  x:Name="loginBox" Style="{StaticResource PcaholderTextBox}" Tag="Логин" Width="250" Height="50"/>
 
 
 
-            <Border Width="250" BorderBrush="#333" BorderThickness="1" CornerRadius="0 0 25 25" x:Name="PasswordOne" Margin="0 0 0 10">
+                <Border Width="250" BorderBrush="#333" BorderThickness="1" CornerRadius="0 0 25 25" x:Name="PasswordOne" Margin="0 0 0 10">
 
 
-                <StackPanel Orientation="Horizontal">
-                    <PasswordBox MaxLength="20"  PreviewTextInput="loginBox_PreviewTextInput" x:Name="passwordBox" 
+                    <StackPanel Orientation="Horizontal">
+                        <PasswordBox MaxLength="20"  PreviewTextInput="loginBox_PreviewTextInput" x:Name="passwordBox" 
                                  PasswordChanged="PasswordBox_PasswordChanged" Style="{StaticResource PasswordBoxTwo}" 
                                  Tag="Пароль" Width="220" Height="50"/>
-                    <btn:Btn Width="20" Style="{StaticResource BtnCheck}" Click="Btn_Click">
-                        <Image Name="image" Margin="0 0 10 0" Width="20" Source="/Image/Eye-Open.png"/>
-                    </btn:Btn>
+                        <btn:Btn Width="20" Style="{StaticResource BtnCheck}" Click="Btn_Click">
+                            <Image Name="image" Margin="0 0 10 0" Width="20" Source="/Image/Eye-Open.png"/>
+                        </btn:Btn>
 
-                </StackPanel>
-            </Border>
-            <Border Width="250" BorderBrush="#333" BorderThickness="1" CornerRadius="0 0 25 25"  x:Name="PasswordTwo" Visibility="Collapsed">
-                <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="passwordTextBox" MaxLength="20" Style="{StaticResource PcaholderTextBoxSearch}" Tag="Пароль" Width="220" Height="50"/>
-                    <btn:Btn Width="20" Style="{StaticResource BtnCheck}" Click="Btn_Click_1">
-                        <Image Name="image1" Margin="0 0 10 0" Width="20" Source="/Image/Eye-Close.png"/>
-                    </btn:Btn>
+                    </StackPanel>
+                </Border>
+                <Border Width="250" BorderBrush="#333" BorderThickness="1" CornerRadius="0 0 25 25"  x:Name="PasswordTwo" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="passwordTextBox" MaxLength="20" Style="{StaticResource PcaholderTextBoxSearch}" Tag="Пароль" Width="220" Height="50"/>
+                        <btn:Btn Width="20" Style="{StaticResource BtnCheck}" Click="Btn_Click_1">
+                            <Image Name="image1" Margin="0 0 10 0" Width="20" Source="/Image/Eye-Close.png"/>
+                        </btn:Btn>
 
-                </StackPanel>
-            </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+           
             <StackPanel Visibility="Collapsed" x:Name="CaptchaBox">
                 <StackPanel Orientation="Horizontal" Margin="12 0 0 0">
                     <Border Width="200" Height="50" BorderBrush="#333" BorderThickness="1" Margin="0 0 0 5" >

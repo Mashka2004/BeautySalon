@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BeautySalon.viewBase;
 using BeautySalon.View;
+using System.Windows.Threading;
+
 namespace BeautySalon.Forms
 {
     /// <summary>
@@ -20,10 +22,31 @@ namespace BeautySalon.Forms
     /// </summary>
     public partial class workTable : Window
     {
+        private DispatcherTimer idleTimer;
+        private int idleTimeLimit;
         public workTable()
         {
             InitializeComponent();
+            InitializeIdleTimer();
         }
+
+        private void InitializeIdleTimer()
+        {
+            // Устанавливаем время бездействия (например, 30 секунд)
+            idleTimeLimit = Properties.Settings.Default.blockingTime; // 30 секунд
+
+            idleTimer = new DispatcherTimer();
+            idleTimer.Interval = TimeSpan.FromMilliseconds(idleTimeLimit);
+            idleTimer.Tick += IdleTimer_Tick;
+            idleTimer.Start(); // Запускаем таймер
+        }
+        private void IdleTimer_Tick(object sender, EventArgs e)
+        {
+            // Блокируем систему и перенаправляем на форму авторизации
+            idleTimer.Stop();
+            MessageBox.Show("Система заблокирована из-за отсутствия активности. Пожалуйста, войдите снова.", "Блокировка системы", MessageBoxButton.OK, MessageBoxImage.Warning);
+            this.Close(); // Закрываем текущее окно или скрываем его
+        }   
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Вернуться на форму авторизации?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)

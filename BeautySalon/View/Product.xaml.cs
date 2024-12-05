@@ -41,14 +41,16 @@ namespace BeautySalon.View
                     Height = 30,
                     Style = (Style)FindResource("BtnStyle"),
                     Content = (i + 1).ToString(),
-                    Margin = new Thickness(0, 0, 10, 0)
+                    Margin = new Thickness(0, 0, 10, 0),
+                    Name = $"Button_{i + 1}"
                 };
                 paginationBtn.Click += PaginationBtn_Click;
                 PaginationBar.Children.Add(paginationBtn);
-        }
+            }
         }
         private int GetTotalCount(List<string> filters)
         {
+
             string countQuery = @"SELECT COUNT(*) FROM Cosmetic_Products";
 
             // Если есть условия фильтрации, добавляем их к запросу
@@ -206,7 +208,8 @@ namespace BeautySalon.View
                     Height = 30,
                     Style = (Style)FindResource("BtnUC"),
                     Content = (i + 1).ToString(),
-                    Margin = new Thickness(0, 0, 10, 0)
+                    Margin = new Thickness(0, 0, 10, 0),
+                    Name=$"Button_{i+1}"
                 };
                 paginationBtn.Click += PaginationBtn_Click;
                 PaginationBar.Children.Add(paginationBtn);
@@ -335,6 +338,21 @@ namespace BeautySalon.View
             // Проверяем, что текущая страница меньше максимальной
             if (currentPage < maxPage)
             {
+                foreach (Button items in PaginationBar.Children)
+                {
+                    string[] butonName = items.Name.Split('_');
+
+                    if (butonName[1] == (currentPage + 1).ToString())
+                    {
+                        items.Style = (Style)FindResource("BtnUCActive");
+                        selectedPaginationButton = items;
+                    }
+                    if (butonName[1] == currentPage.ToString())
+                    {
+                        items.Style = (Style)FindResource("BtnUC");
+                    }
+                }
+
                 currentPage += 1;
                 UpdateGrid(query, currentPage);
             }
@@ -344,6 +362,20 @@ namespace BeautySalon.View
         {
             if (currentPage > 1)
             {
+                foreach (Button items in PaginationBar.Children)
+                {
+                    string[] butonName = items.Name.Split('_');
+
+                    if (butonName[1] == currentPage.ToString())
+                    {
+                        items.Style = (Style)FindResource("BtnUC");
+                        selectedPaginationButton = items;
+                    }
+                    if (butonName[1] == (currentPage - 1).ToString())
+                    {
+                        items.Style = (Style)FindResource("BtnUCActive");
+                    }
+                }
                 currentPage -= 1;
                 UpdateGrid(query, currentPage);
             }

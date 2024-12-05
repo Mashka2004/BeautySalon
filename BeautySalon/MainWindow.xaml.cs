@@ -75,6 +75,7 @@ namespace BeautySalon
                     passwordTextBox.Clear();
 
                     MessageBox.Show("Необходимо пройти captcha");
+                    Autorizetionbox1.IsEnabled = false;
                     CaptchaBox.Visibility = Visibility.Visible;
                     captchaText = GenerateRandomText(4);
                     Bitmap captchaBitmap = GenerateCaptchaImage(captchaText);
