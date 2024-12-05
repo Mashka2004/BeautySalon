@@ -29,7 +29,6 @@ namespace BeautySalon.Forms
             InitializeComponent();
             InitializeIdleTimer();
         }
-
         private void InitializeIdleTimer()
         {
             // Устанавливаем время бездействия (например, 30 секунд)
@@ -45,7 +44,7 @@ namespace BeautySalon.Forms
             // Блокируем систему и перенаправляем на форму авторизации
             idleTimer.Stop();
             MessageBox.Show("Система заблокирована из-за отсутствия активности. Пожалуйста, войдите снова.", "Блокировка системы", MessageBoxButton.OK, MessageBoxImage.Warning);
-            this.Close(); // Закрываем текущее окно или скрываем его
+            this.Close();
         }   
         private void Button_Click(object sender, RoutedEventArgs e)
         {
