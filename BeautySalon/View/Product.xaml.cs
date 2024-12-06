@@ -39,7 +39,7 @@ namespace BeautySalon.View
                 {
                     Width = 30,
                     Height = 30,
-                    Style = (Style)FindResource("BtnStyle"),
+                    Style = (Style)FindResource("BtnUC"),
                     Content = (i + 1).ToString(),
                     Margin = new Thickness(0, 0, 10, 0),
                     Name = $"Button_{i + 1}"
