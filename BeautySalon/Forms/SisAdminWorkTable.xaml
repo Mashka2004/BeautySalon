@@ -18,7 +18,7 @@
             <Border BorderBrush="#333" Background="#b3adad" Opacity="0.7" Grid.Column="0" BorderThickness="0 0 2 0">
                 <Grid>
                     <Grid.RowDefinitions >
-                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="180"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" VerticalAlignment="Center">
@@ -42,9 +42,18 @@
                                 </StackPanel>
                             </Grid>
                         </menuBnt:Btn>
+                        
+                    <menuBnt:Btn Style="{StaticResource BtnMenu}" x:Name="Settings" Click="Orders_Click">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Width="45" Margin="20 0 15 0" Source="/Image/ImageIcon/SettingsSisAdm.png"/>
+                                <TextBlock FontSize="18" Margin="0 10"> Настройки</TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </menuBnt:Btn>
 
-                   
-                    </StackPanel>
+
+                </StackPanel>
                 </Grid>
             </Border>
 

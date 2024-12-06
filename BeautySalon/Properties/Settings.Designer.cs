@@ -49,7 +49,7 @@ namespace BeautySalon.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100000000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("30000")]
         public int blockingTime {
             get {
                 return ((int)(this["blockingTime"]));

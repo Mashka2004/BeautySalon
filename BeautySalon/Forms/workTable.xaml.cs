@@ -28,6 +28,28 @@ namespace BeautySalon.Forms
         {
             InitializeComponent();
             InitializeIdleTimer();
+            this.MouseMove += new MouseEventHandler(Window_MouseMove);
+            this.KeyDown += new KeyEventHandler(Window_KeyDown); // Дополнительно сбрасываем таймер при нажатии клавиш
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            ResetIdleTimer();
+        }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            ResetIdleTimer();
+        }
+
+        private void ResetIdleTimer()
+        {
+            // Сбрасываем таймер при активности
+            if (idleTimer.IsEnabled)
+            {
+                idleTimer.Stop();
+                idleTimer.Start();
+            }
         }
         private void InitializeIdleTimer()
         {

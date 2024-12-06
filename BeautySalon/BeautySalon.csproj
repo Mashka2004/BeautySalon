@@ -219,6 +219,9 @@
     <Compile Include="View\Services.xaml.cs">
       <DependentUpon>Services.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Page Include="Forms\ClientsAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -327,6 +330,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -392,6 +399,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Image\imageIcon\SettingsSisAdm.png" />
     <Resource Include="Image\imageIcon\blue.png" />
     <Resource Include="Image\imageIcon\green.png" />
     <Resource Include="Image\imageIcon\red.png" />
