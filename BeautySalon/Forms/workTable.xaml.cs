@@ -40,6 +40,7 @@ namespace BeautySalon.Forms
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             ResetIdleTimer();
+
         }
 
         private void ResetIdleTimer()

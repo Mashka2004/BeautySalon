@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +28,7 @@ namespace BeautySalon.View
 
         private void timeBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-
+            if (Regex.IsMatch(e.Text, @"^[а-яА-ЯA-Za-z \W]$")) { e.Handled = true; }
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
@@ -40,6 +41,8 @@ namespace BeautySalon.View
             int time = int.Parse(timeBox.Text) * 1000;
             if (MessageBox.Show("Сохранить изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
+                Properties.Settings.Default.blockingTime = time;
+                MessageBox.Show("Измения успешно сохранены?");
             }
         }
 
