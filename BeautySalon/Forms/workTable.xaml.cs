@@ -31,18 +31,15 @@ namespace BeautySalon.Forms
             this.MouseMove += new MouseEventHandler(Window_MouseMove);
             this.KeyDown += new KeyEventHandler(Window_KeyDown); // Дополнительно сбрасываем таймер при нажатии клавиш
         }
-
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             ResetIdleTimer();
         }
-
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             ResetIdleTimer();
 
         }
-
         private void ResetIdleTimer()
         {
             // Сбрасываем таймер при активности
@@ -55,12 +52,12 @@ namespace BeautySalon.Forms
         private void InitializeIdleTimer()
         {
             // Устанавливаем время бездействия (например, 30 секунд)
-            idleTimeLimit = Properties.Settings.Default.blockingTime; // 30 секунд
+            idleTimeLimit = Properties.Settings.Default.blockingTime;
 
             idleTimer = new DispatcherTimer();
             idleTimer.Interval = TimeSpan.FromMilliseconds(idleTimeLimit);
             idleTimer.Tick += IdleTimer_Tick;
-            idleTimer.Start(); // Запускаем таймер
+            idleTimer.Start();
         }
         private void IdleTimer_Tick(object sender, EventArgs e)
         {
