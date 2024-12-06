@@ -11,7 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="475"/>
+            <RowDefinition Height="465"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
@@ -60,8 +60,8 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Margin="10,19.8,10,20.2" Grid.ColumnSpan="2">
-            <DataGrid x:Name="dataGridView" HeadersVisibility="Column" RowHeight="30" FontSize="15"    MaxHeight="475"
+        <StackPanel Grid.Row="2" Margin="10 0" Grid.ColumnSpan="2">
+            <DataGrid x:Name="dataGridView" HeadersVisibility="Column" RowHeight="30" FontSize="15"    MaxHeight="455"
                       ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       SelectionChanged="dataGridView_SelectionChanged"
                       IsReadOnly="True"

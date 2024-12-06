@@ -43,7 +43,7 @@ namespace BeautySalon.View
                 {
                     con.Open();
 
-                    string query = @"SELECT employee_id, first_name AS 'Имя', last_name AS 'Фамилия', patronymic AS 'Отчество', login AS 'Логин', password AS 'Пароль', 
+                    string query = @"SELECT employee_id, concat(last_name,' ',Left(first_name,1),'.',' ',Left(patronymic,1),'.') AS 'ФИО', login AS 'Логин', password AS 'Пароль', 
                                    role AS 'Роль' FROM Employees";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, con))
@@ -51,6 +51,20 @@ namespace BeautySalon.View
                         MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                         DataTable dt = new DataTable();
                         da.Fill(dt);
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            string login = row["Логин"].ToString();
+
+                            if (login.Length > 4)
+                            {
+                                row["Логин"] = login.Substring(0, 4) + new string('*', login.Length + 4);
+                            }
+                            else
+                            {
+                                row["Логин"] = new string('*', login.Length);
+                            }
+                        }
 
                         dataGridView.ItemsSource = dt.DefaultView;
 

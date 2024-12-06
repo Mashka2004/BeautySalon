@@ -50,12 +50,29 @@ namespace BeautySalon.View
                 {
                     con.Open();
 
-                    MySqlCommand cmd = new MySqlCommand(@"Select client_id,first_name As 'Имя', last_name As 'Фамилия',
+                    MySqlCommand cmd = new MySqlCommand(@"Select client_id, concat(last_name,' ',left(first_name,1), '.') As 'ФИО',
                                                           phone As 'Телефон', email As 'Почта', registration_date As 'Дата регистрации' From Clients", con);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string phone = row["Телефон"].ToString();
+
+                        if (phone.Length > 6)
+                        {
+                            string lastFiveDigits = phone.Substring(phone.Length - 5);
+                            string maskedPhone = "+7" + new string('*', phone.Length - 6) + lastFiveDigits;
+
+                            row["Телефон"] = maskedPhone;
+                        }
+
+                        else
+                        {
+                            row["Телефон"] = new string('*', phone.Length);
+                        }
+                    }
                     dataGridView.ItemsSource = dt.DefaultView;
                     dataGridView.Columns[0].Visibility = Visibility.Collapsed;
                 }
